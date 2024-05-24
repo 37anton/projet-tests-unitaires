@@ -74,7 +74,7 @@ class ToDoList {
             if (this.items.length === 8) {
                 this.emailSender.sendEmail(this.user.email, "Votre ToDoList est presque remplie.");
             }
-            this.save(item);
+            this.save(item);  // Appeler la méthode save
             return true;
         }
         return false;
@@ -93,6 +93,7 @@ class ToDoList {
 // Tests
 function runTests() {
     // Test User validation
+    console.log('Running User validation tests...');
     let user = new User("example@example.com", "John", "Doe", "Password123", "2000-01-01");
     console.assert(user.isValid(), "User with valid details should be valid");
 
@@ -106,6 +107,7 @@ function runTests() {
     console.assert(!user.isValid(), "User under 13 years old should not be valid");
 
     // Test ToDoList functionality
+    console.log('Running ToDoList tests...');
     user = new User("example@example.com", "John", "Doe", "Password123", "2000-01-01");
     const todoList = new ToDoList(user);
 
@@ -128,10 +130,11 @@ function runTests() {
     console.assert(!todoList.addItem(item), "Should not add item if less than 30 minutes have passed");
 
     // Test email sending on 8th item
+    console.log('Running email sending tests...');
     const emailSenderMock = {
         sendEmail: function(toAddress, message) {
-            this.called = true;
             console.log(`Mock sendEmail called with: ${toAddress}, ${message}`);
+            this.called = true;
         },
         called: false
     };
@@ -147,6 +150,7 @@ function runTests() {
     console.assert(emailSenderMock.called, "Email should be sent when 8th item is added");
 
     // Test save method throwing exception
+    console.log('Running save method tests...');
     const todoListWithMockSave = new ToDoList(user);
     todoListWithMockSave.save = function(item) {
         throw new Error("Mock save method called");
