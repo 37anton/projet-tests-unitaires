@@ -138,11 +138,11 @@ function runTests() {
     item = new ToDoItem("Task2", "This is another task.");
     console.assert(!todoList.addItem(item), "Should not add item if less than 30 minutes have passed");
 
-    // Test email sending on 8th item
-    console.log('Running email sending tests...');
+    // Test email pour le 8eme item
+    console.log('Test pour l\'envoi d\'emails...');
     const emailSenderMock = {
         sendEmail: function(toAddress, message) {
-            console.log(`Mock sendEmail called with: ${toAddress}, ${message}`);
+            console.log(`Appel de la méthode mock sendEmail à : ${toAddress}, ${message}`);
             this.called = true;
         },
         called: false
@@ -151,25 +151,25 @@ function runTests() {
     todoList.items = [];
     todoList.emailSender = emailSenderMock;
     for (let i = 1; i <= 7; i++) {
-        item = new ToDoItem(`Task${i}`, "This is a task.");
+        item = new ToDoItem(`Item ${i}`, `Un item ${i}`);
         todoList.addItem(item);
     }
-    item = new ToDoItem("Task8", "This is the eighth task.");
+    item = new ToDoItem("Item 8", "Nous sommes au 8eme item.");
     todoList.addItem(item);
-    console.assert(emailSenderMock.called, "Email should be sent when 8th item is added");
+    console.assert(emailSenderMock.called, "L\'email doit etre envoyé à l'ajout du 8eme item");
 
-    // Test save method throwing exception
-    console.log('Running save method tests...');
+    // Tester la méthode save
+    console.log('On teste la méthode save...');
     const todoListWithMockSave = new ToDoList(user);
     todoListWithMockSave.save = function(item) {
-        throw new Error("Mock save method called");
+        throw new Error("Appel de la méthode mock de save");
     };
 
     try {
-        item = new ToDoItem("Task1", "This is a task.");
+        item = new ToDoItem("Item 1", "Un item.");
         todoListWithMockSave.addItem(item);
     } catch (e) {
-        console.assert(e.message === "Mock save method called", "Save method should throw an exception");
+        console.assert(e.message === "La méthode mock save est appellée", "La méthode save doit renvoyer une exception");
     }
 }
 
