@@ -59,8 +59,10 @@ class ToDoList {
     }
 
     canAddItem() {
-        if (this.items.length >= 10) return false;
-        if (this.items.length > 0) {
+        if (this.items.length >= 10) { //pas plus de 10 items par todolist
+            return false;
+        }
+        if (this.items.length > 0) { // interdiction d'ajouter un item si on a ajouté un item à cette todolist il y a moins de 30min 
             const lastItemDate = this.items[this.items.length - 1].creationDate;
             const now = new Date();
             if (now - lastItemDate < 30 * 60 * 1000) return false;
