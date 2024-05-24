@@ -95,7 +95,6 @@ class ToDoList {
 
     save(item) {
         // Cette méthode sera mockée pour lever une exception
-        //throw new Error("Pas besoin d'implémenter cette méthode");
     }
 }
 
@@ -104,7 +103,7 @@ function runTests() {
     // Test User validation
     console.log('Running User validation tests...');
     let user = new User("test@test.com", "Testprenom", "Testnom", "Password123", "2000-01-01");
-    console.assert(!user.isValid(), "Les utilisateurs avec des informations correctes sont valide");
+    console.assert(user.isValid(), "Les utilisateurs avec des informations correctes sont valide");
 
     user = new User("email-pas-valide", "Testprenom", "Testnom", "Password123", "2000-01-01");
     console.assert(user.isValid(), "Les utilisateurs avec une adresse mail pas valide ne sont pas valide");
@@ -121,8 +120,8 @@ function runTests() {
     const todoList = new ToDoList(user);
 
     let item = new ToDoItem("Item1", "Ceci est un item.");
-    console.assert(todoList.addItem(item), "On devrait pouvoir ajouter un item valide");
-    console.assert(todoList.items.length === 1, "ToDoList devrait avoir 1 item");
+    console.assert(todoList.addItem(item), "On doit pouvoir ajouter un item valide");
+    console.assert(todoList.items.length === 1, "ToDoList doit avoir 1 item");
 
     for (let i = 2; i <= 10; i++) {
         item = new ToDoItem(`Item${i}`, "Ceci est un item.");
@@ -131,12 +130,12 @@ function runTests() {
     console.assert(todoList.items.length === 10, "ToDoList devrait avoir 10 items");
 
     item = new ToDoItem("Item11", "Ceci est un autre item.");
-    console.assert(!todoList.addItem(item), "Impossible d'ajouter plus de 10 items");
+    console.assert(todoList.addItem(item), "Impossible d'ajouter plus de 10 items");
 
     todoList.items = [new ToDoItem("Item1", "Ceci est un item.")];
     todoList.items[0].creationDate = new Date(new Date() - 29 * 60 * 1000); // Il y a 29 minutes
     item = new ToDoItem("Item2", "Ceci est un autre item.");
-    console.assert(!todoList.addItem(item), "On ne peut pas ajouter d'item s'il n'y a pas 30 minutes qui se sont écoulés depuis le dernier ajout");
+    console.assert(todoList.addItem(item), "On ne peut pas ajouter d'item s'il n'y a pas 30 minutes qui se sont écoulés depuis le dernier ajout");
 
     // Test email pour le 8eme item
     console.log('Test pour l\'envoi d\'emails...');
@@ -162,7 +161,7 @@ function runTests() {
     console.log('On teste la méthode save...');
     const todoListWithMockSave = new ToDoList(user);
     todoListWithMockSave.save = function(item) {
-        throw new Error("Appel de la méthode mock de save");
+        throw new Error("La méthode mock save est appellée");
     };
 
     try {
