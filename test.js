@@ -73,8 +73,9 @@ class ToDoList {
     addItem(item) {
         if (this.user.isValid() && this.canAddItem() && this.isUniqueItemName(item.name)) {
             this.items.push(item);
+            //on envoie un email à l'utilisateur si sa todolist atteint les 8 items
             if (this.items.length === 8) {
-                this.emailSender.sendEmail(this.user.email, "Votre ToDoList est presque remplie.");
+                this.emailSender.sendEmail(this.user.email, "Votre Todolist est presque remplie.");
             }
             this.save(item);  // Appeler la méthode save
             return true;
@@ -83,8 +84,14 @@ class ToDoList {
     }
 
     isUniqueItemName(name) {
-        return !this.items.some(item => item.name === name);
+        for (const item of this.items) {
+            if (item.name === name) {
+                return false;
+            }
+        }
+        return true;
     }
+    
 
     save(item) {
         // Cette méthode sera mockée pour lever une exception
