@@ -115,7 +115,7 @@ function runTests() {
     user = new User("test@test.com", "Yassine", "ABDELKADER", "Password123", "2020-01-01");
     console.assert(!user.isValid(), "Les utilisateurs qui ont moins de 13 ans ne sont pas valide ");
 
-    // Test ToDoList functionality
+    // Test ToDoList fonctionnalité
     console.log('ToDoList tests..');
     user = new User("test@test.com", "Testprenom", "Testnom", "Password123", "2000-01-01");
     const todoList = new ToDoList(user);
@@ -125,18 +125,18 @@ function runTests() {
     console.assert(todoList.items.length === 1, "ToDoList devrait avoir 1 item");
 
     for (let i = 2; i <= 10; i++) {
-        item = new ToDoItem(`Task${i}`, "This is a task.");
+        item = new ToDoItem(`Item${i}`, "Ceci est un item.");
         todoList.addItem(item);
     }
-    console.assert(todoList.items.length === 10, "ToDoList should have 10 items");
+    console.assert(todoList.items.length === 10, "ToDoList devrait avoir 10 items");
 
-    item = new ToDoItem("Task11", "This is another task.");
-    console.assert(!todoList.addItem(item), "Should not be able to add more than 10 items");
+    item = new ToDoItem("Item11", "Ceci est un autre item.");
+    console.assert(!todoList.addItem(item), "Impossible d'ajouter plus de 10 items");
 
-    todoList.items = [new ToDoItem("Task1", "This is a task.")];
-    todoList.items[0].creationDate = new Date(new Date() - 29 * 60 * 1000); // 29 minutes ago
-    item = new ToDoItem("Task2", "This is another task.");
-    console.assert(!todoList.addItem(item), "Should not add item if less than 30 minutes have passed");
+    todoList.items = [new ToDoItem("Item1", "Ceci est un item.")];
+    todoList.items[0].creationDate = new Date(new Date() - 29 * 60 * 1000); // Il y a 29 minutes
+    item = new ToDoItem("Item2", "Ceci est un autre item.");
+    console.assert(!todoList.addItem(item), "On ne peut pas ajouter d'item s'il n'y a pas 30 minutes qui se sont écoulés depuis le dernier ajout");
 
     // Test email pour le 8eme item
     console.log('Test pour l\'envoi d\'emails...');
