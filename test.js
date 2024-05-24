@@ -115,7 +115,7 @@ function runTests() {
     console.assert(user.isValid(), "Les utilisateurs qui ont moins de 13 ans ne sont pas valide ");
 
     // Test ToDoList fonctionnalité
-    console.log('ToDoList tests..');
+    console.log('Tests de ToDoList..');
     user = new User("test@test.com", "Testprenom", "Testnom", "Password123", "2000-01-01");
     const todoList = new ToDoList(user);
 
