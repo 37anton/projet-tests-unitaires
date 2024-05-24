@@ -74,6 +74,7 @@ class ToDoList {
             if (this.items.length === 8) {
                 this.emailSender.sendEmail(this.user.email, "Votre ToDoList est presque remplie.");
             }
+            this.save(item);
             return true;
         }
         return false;
@@ -82,12 +83,16 @@ class ToDoList {
     isUniqueItemName(name) {
         return !this.items.some(item => item.name === name);
     }
+
+    save(item) {
+        // Cette méthode sera mockée pour lever une exception
+        throw new Error("Save method not implemented");
+    }
 }
 
 // Tests
 function runTests() {
     // Test User validation
-    console.log('Running User validation tests...');
     let user = new User("example@example.com", "John", "Doe", "Password123", "2000-01-01");
     console.assert(user.isValid(), "User with valid details should be valid");
 
@@ -101,7 +106,6 @@ function runTests() {
     console.assert(!user.isValid(), "User under 13 years old should not be valid");
 
     // Test ToDoList functionality
-    console.log('Running ToDoList tests...');
     user = new User("example@example.com", "John", "Doe", "Password123", "2000-01-01");
     const todoList = new ToDoList(user);
 
@@ -124,11 +128,10 @@ function runTests() {
     console.assert(!todoList.addItem(item), "Should not add item if less than 30 minutes have passed");
 
     // Test email sending on 8th item
-    console.log('Running email sending tests...');
     const emailSenderMock = {
         sendEmail: function(toAddress, message) {
-            console.log(`Mock sendEmail called with: ${toAddress}, ${message}`);
             this.called = true;
+            console.log(`Mock sendEmail called with: ${toAddress}, ${message}`);
         },
         called: false
     };
@@ -142,6 +145,19 @@ function runTests() {
     item = new ToDoItem("Task8", "This is the eighth task.");
     todoList.addItem(item);
     console.assert(emailSenderMock.called, "Email should be sent when 8th item is added");
+
+    // Test save method throwing exception
+    const todoListWithMockSave = new ToDoList(user);
+    todoListWithMockSave.save = function(item) {
+        throw new Error("Mock save method called");
+    };
+
+    try {
+        item = new ToDoItem("Task1", "This is a task.");
+        todoListWithMockSave.addItem(item);
+    } catch (e) {
+        console.assert(e.message === "Mock save method called", "Save method should throw an exception");
+    }
 }
 
 runTests();
