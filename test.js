@@ -47,7 +47,7 @@ class ToDoItem {
 
 class EmailSenderService {
     sendEmail(toAddress, message) {
-        console.log(`Sending email to ${toAddress}: ${message}`);
+        console.log(`On envoie l'email à ${toAddress}: ${message}`);
     }
 }
 
@@ -101,7 +101,7 @@ class ToDoList {
 // Tests
 function runTests() {
     // Test User validation
-    console.log('Running User validation tests...');
+    console.log('Tests de validation d\'users...');
     let user = new User("test@test.com", "Testprenom", "Testnom", "Password123", "2000-01-01");
     console.assert(user.isValid(), "Les utilisateurs avec des informations correctes sont valide");
 
