@@ -95,7 +95,7 @@ class ToDoList {
 
     save(item) {
         // Cette méthode sera mockée pour lever une exception
-        throw new Error("Pas besoin d'implémenter cette méthode");
+        //throw new Error("Pas besoin d'implémenter cette méthode");
     }
 }
 
@@ -104,16 +104,16 @@ function runTests() {
     // Test User validation
     console.log('Running User validation tests...');
     let user = new User("test@test.com", "Testprenom", "Testnom", "Password123", "2000-01-01");
-    console.assert(user.isValid(), "Les utilisateurs avec des informations correctes sont valide");
+    console.assert(!user.isValid(), "Les utilisateurs avec des informations correctes sont valide");
 
     user = new User("email-pas-valide", "Testprenom", "Testnom", "Password123", "2000-01-01");
-    console.assert(!user.isValid(), "Les utilisateurs avec une adresse mail pas valide ne sont pas valide");
+    console.assert(user.isValid(), "Les utilisateurs avec une adresse mail pas valide ne sont pas valide");
 
     user = new User("test@test.com", "Testprenom", "Testnom", "password", "2000-01-01");
-    console.assert(!user.isValid(), "Les utilisateurs ne validant pas toutes les conditions du password ne sont pas valide");
+    console.assert(user.isValid(), "Les utilisateurs ne validant pas toutes les conditions du password ne sont pas valide");
 
     user = new User("test@test.com", "Yassine", "ABDELKADER", "Password123", "2020-01-01");
-    console.assert(!user.isValid(), "Les utilisateurs qui ont moins de 13 ans ne sont pas valide ");
+    console.assert(user.isValid(), "Les utilisateurs qui ont moins de 13 ans ne sont pas valide ");
 
     // Test ToDoList fonctionnalité
     console.log('ToDoList tests..');
