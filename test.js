@@ -95,7 +95,7 @@ class ToDoList {
 
     save(item) {
         // Cette méthode sera mockée pour lever une exception
-        throw new Error("Save method not implemented");
+        throw new Error("Pas besoin d'implémenter cette méthode");
     }
 }
 
